@@ -6,12 +6,25 @@ namespace BeautyClub2026App
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            // ========================================================
+            // FASE 1: Adicionar serviços ao contêiner (builder.Services)
+            // ========================================================
+
+            // Adiciona o suporte a Razor Pages
             builder.Services.AddRazorPages();
 
+            // Registra o ProdutoService como um Singleton
+            builder.Services.AddSingleton<BeautyClub2026App.Services.ProdutoService>();
+
+            // ========================================================
+            // CONSTRUÇÃO DA APLICAÇÃO (Chamado apenas UMA VEZ)
+            // ========================================================
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            // ========================================================
+            // FASE 2: Configurar o pipeline HTTP (app.Use...)
+            // ========================================================
+
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
@@ -26,6 +39,7 @@ namespace BeautyClub2026App
             app.UseAuthorization();
 
             app.MapStaticAssets();
+
             app.MapRazorPages()
                .WithStaticAssets();
 

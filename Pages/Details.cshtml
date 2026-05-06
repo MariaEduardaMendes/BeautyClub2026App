@@ -1,4 +1,63 @@
 ﻿@page
 @model BeautyClub2026App.Pages.DetailsModel
 @{
+    ViewData["Title"] = "Detalhes do Produto";
 }
+
+<div class="container py-4">
+    <!-- Verificamos se o produto realmente existe antes de tentar exibi-lo -->
+    @if (Model.ProdutoSelecionado != null)
+    {
+        <h2 class="my-3 text-primary fw-bold">@Model.ProdutoSelecionado.Nome</h2>
+        <div class="row mb-5 mt-4">
+            <!-- Coluna da Imagem -->
+            <div class="col-md-5">
+                <img class="img-fluid rounded shadow-sm w-100"
+                     src="@Model.ProdutoSelecionado.ImagemUrl"
+                     alt="@Model.ProdutoSelecionado.Nome">
+            </div>
+
+            <!-- Coluna dos Detalhes -->
+            <div class="col-md-7">
+                <h4 class="my-3 fw-bold">Descrição</h4>
+                <p class="text-secondary fs-5">@Model.ProdutoSelecionado.Descricao</p>
+
+                <h4 class="mt-4 mb-3 fw-bold">Mais Informações</h4>
+                <ul class="list-group list-group-flush mb-4">
+                    <li class="list-group-item bg-transparent fs-5">
+                        <strong>Preço:</strong> <span class="text-success fw-bold">R$ @Model.ProdutoSelecionado.Preco.ToString("F2")</span>
+                    </li>
+                    <li class="list-group-item bg-transparent">
+                        <strong>Entrega Expressa:</strong>
+                        @if (Model.ProdutoSelecionado.EntregaExpressa)
+                        {
+                            <span class="badge bg-success"><i class="bi bi-lightning-fill"></i> Disponível</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Padrão</span>
+                        }
+                    </li>
+                    <li class="list-group-item bg-transparent text-muted small">
+                        Cadastrado em: @Model.ProdutoSelecionado.DataCadastro.ToString("dd/MM/yyyy")
+                    </li>
+                </ul>
+
+                <div class="d-flex gap-2">
+                    <!-- O asp-page="/Index" faz o botão voltar corretamente para a Home -->
+                    <a asp-page="/Index" class="btn btn-outline-secondary px-4">Voltar</a>
+                    <button class="btn btn-primary px-4 shadow-sm"><i class="bi bi-cart-plus"></i> Adicionar ao Carrinho</button>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-danger mt-4" role="alert">
+            <h4 class="alert-heading">Ops!</h4>
+            <p>O produto que você tentou acessar não foi encontrado ou não existe mais.</p>
+            <hr>
+            <a asp-page="/Index" class="btn btn-danger">Voltar para a Loja</a>
+        </div>
+    }
+</div>
