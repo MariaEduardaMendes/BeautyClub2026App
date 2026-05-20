@@ -1,24 +1,22 @@
 using BeautyClub2026App.Models;
-using BeautyClub2026App.Services; 
+using BeautyClub2026App.Services;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BeautyClub2026App.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly ProdutoService _produtoService;
+        public IList<Produto> Produtos { get; set; }
+        private IProdutoService _service;
 
-        public IList<Produto> Produtos { get; set; } = default!;
-
-        public IndexModel(ProdutoService produtoService)
+        public IndexModel(IProdutoService service)
         {
-            _produtoService = produtoService;
+            _service = service;
         }
 
         public void OnGet()
         {
-            // Busca a lista pronta no serviço
-            Produtos = _produtoService.ObterTodos();
+            Produtos = _service.ObterTodos();
         }
     }
 }

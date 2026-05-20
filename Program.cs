@@ -1,3 +1,5 @@
+using BeautyClub2026App.Services;
+
 namespace BeautyClub2026App
 {
     public class Program
@@ -6,29 +8,15 @@ namespace BeautyClub2026App
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // ========================================================
-            // FASE 1: Adicionar serviços ao contêiner (builder.Services)
-            // ========================================================
-
-            // Adiciona o suporte a Razor Pages
             builder.Services.AddRazorPages();
 
-            // Registra o ProdutoService como um Singleton
-            builder.Services.AddSingleton<BeautyClub2026App.Services.ProdutoService>();
+            builder.Services.AddSingleton<IProdutoService, ProdutoService>();
 
-            // ========================================================
-            // CONSTRUÇÃO DA APLICAÇÃO (Chamado apenas UMA VEZ)
-            // ========================================================
             var app = builder.Build();
-
-            // ========================================================
-            // FASE 2: Configurar o pipeline HTTP (app.Use...)
-            // ========================================================
 
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -39,7 +27,6 @@ namespace BeautyClub2026App
             app.UseAuthorization();
 
             app.MapStaticAssets();
-
             app.MapRazorPages()
                .WithStaticAssets();
 

@@ -7,39 +7,17 @@ namespace BeautyClub2026App.Pages
 {
     public class DetailsModel : PageModel
     {
-        private readonly ProdutoService _produtoService;
-
-        public Produto? ProdutoSelecionado { get; set; }
-
-        public DetailsModel(ProdutoService produtoService)
-        {
-            _produtoService = produtoService;
-        }
-
-        public IActionResult OnGet(int id)
-        {
-            ProdutoSelecionado = _produtoService.ObterPorId(id);
-
-            if (ProdutoSelecionado == null)
-            {
-                return RedirectToPage("/Index");
-            }
-
-            return Page();
-        }
-    }
-}
-
-    public class DetailsModel : PageModel
-    {
         public Produto Produto { get; set; }
+        private IProdutoService _service;
+
+        public DetailsModel(IProdutoService service)
+        {
+            _service = service;
+        }
 
         public void OnGet(int id)
         {
-            var service = new ProdutoService();
-            Produto = service.ObterPorId(id);
+            Produto = _service.Obter(id);
         }
     }
 }
-
-// adaptar solucao do prof acima ao meu
