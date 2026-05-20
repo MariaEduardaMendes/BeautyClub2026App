@@ -29,3 +29,17 @@ namespace BeautyClub2026App.Pages
         }
     }
 }
+
+    public class DetailsModel : PageModel
+    {
+        public Produto Produto { get; set; }
+
+        public void OnGet(int id)
+        {
+            var service = new ProdutoService();
+            Produto = service.ObterPorId(id);
+        }
+    }
+}
+
+// adaptar solucao do prof acima ao meu
