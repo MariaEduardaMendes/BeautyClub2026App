@@ -1,6 +1,6 @@
 ﻿using BeautyClub2026App.Models;
 
-namespace BeautyClub2026App.Services
+namespace BeautyClub2026App.Services.Memory
 {
     public class ProdutoService : IProdutoService
     {
